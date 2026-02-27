@@ -1,105 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width'>
-  <title>Privacy Policy - Sms Shield</title>
-  <style>
-    body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      padding: 1em;
-      line-height: 1.6;
-      max-width: 900px;
-      margin: auto;
-    }
-    h2 {
-      margin-top: 24px;
-    }
-  </style>
-</head>
-<body>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<h2>Privacy Policy</h2>
 
-<p>This Privacy Policy applies to the mobile application <strong>Sms Shield</strong> developed and published by <strong>RadheDevelopers</strong>. The application is provided as a service and is intended for use as is.</p>
+    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-<h2>Information Collection and Use</h2>
+    <application
+        android:allowBackup="true"
+        android:name=".NotifyVaultApp"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NotifyVault">
+        <!-- Splash Screen -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.NotifyVault.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-<p>Sms Shield may collect limited information automatically when you use the application. This may include:</p>
+        <!-- Main Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
-<ul>
-<li>Device type and operating system version</li>
-<li>App usage information</li>
-<li>Crash reports and diagnostic data</li>
-</ul>
+        <service
+            android:name=".services.NotificationListenerService"
+            android:exported="true"
+            android:label="@string/service_name"
+            android:foregroundServiceType="specialUse"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.notification.default_filter_types"
+                android:value="conversations|alerting|silent" />
+        </service>
 
-<p>This information is used solely to improve application performance and user experience.</p>
+        <!-- Boot Receiver — restarts the service after device reboot -->
+        <receiver
+            android:name=".services.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <!-- AdMob App ID -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3534948019630062~6554850076" />
+    </application>
 
-<h2>SMS Permissions and Message Processing</h2>
-
-<p>Sms Shield may request permission to receive, read, and send SMS messages in order to provide its core functionality.</p>
-
-<p>If you choose to set Sms Shield as your device’s default SMS application, the app may process incoming and outgoing messages to provide spam filtering, message blocking, and message management features.</p>
-
-<p>All SMS message processing is performed locally on your device. Sms Shield does not upload, store, or transmit your SMS content to external servers unless explicitly stated within the application.</p>
-
-<p>Blocked messages are stored locally on your device so that you can review or delete them at any time.</p>
-
-<p>You may enable or disable spam protection features within the app settings at any time.</p>
-
-<h2>Phone Permissions</h2>
-
-<p>If granted, phone-related permissions may be used to identify incoming message context or provide spam-related features. This information is processed locally and is not shared with third parties.</p>
-
-<h2>Third-Party Services</h2>
-
-<p>Sms Shield may use trusted third-party services for analytics, advertising, or performance monitoring. These services may include:</p>
-
-<ul>
-<li><a href="https://policies.google.com/privacy" target="_blank">Google Play Services</a></li>
-<li><a href="https://support.google.com/admob/answer/6128543" target="_blank">Google AdMob</a></li>
-<li>Firebase Analytics or Crash Reporting</li>
-</ul>
-
-<p>These third-party providers may collect information in accordance with their own privacy policies.</p>
-
-<h2>Data Sharing</h2>
-
-<p>Sms Shield does not sell, trade, or rent personal information to third parties.</p>
-
-<p>Information may be disclosed only if required by law or to comply with legal obligations.</p>
-
-<h2>Data Retention</h2>
-
-<p>Data processed by Sms Shield is retained only as long as necessary to provide app functionality. Locally stored blocked messages remain on your device until you delete them.</p>
-
-<h2>Security</h2>
-
-<p>We value your trust and implement reasonable administrative and technical safeguards to protect your information. However, no electronic storage method is completely secure.</p>
-
-<h2>Children’s Privacy</h2>
-
-<p>Sms Shield does not knowingly collect personal information from children under the age of 13. If such information is discovered, it will be deleted promptly.</p>
-
-<h2>Opt-Out Rights</h2>
-
-<p>You can stop all information collection by uninstalling the application using standard uninstall procedures available on your device.</p>
-
-<h2>Changes to This Privacy Policy</h2>
-
-<p>This Privacy Policy may be updated from time to time. Any updates will be posted on this page with a revised effective date.</p>
-
-<p><strong>Effective Date:</strong> 2026-01-15</p>
-
-<h2>Your Consent</h2>
-
-<p>By using Sms Shield, you consent to the collection and use of information as described in this Privacy Policy.</p>
-
-<h2>Contact Us</h2>
-
-<p>If you have any questions regarding this Privacy Policy, you may contact us at:</p>
-
-<p><strong>Email:</strong> somnathkumar17618@gmail.com</p>
-
-</body>
-</html>
+</manifest>
